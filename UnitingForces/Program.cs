@@ -54,6 +54,9 @@ namespace UnitingForces
                 new Soldier("Воробьев", "Ст. Лейтенант", "Автомат", 110),
                 new Soldier("Балош", "Капитан", "Винтовка", 135),
                 new Soldier("Захаров", "Подполковник", "Пистолет", 200),
+                new Soldier("Бронин", "Подполковник", "Пистолет", 200),
+                new Soldier("Бродов", "Подполковник", "Пистолет", 200),
+                new Soldier("Броцкий", "Подполковник", "Пистолет", 200),
                 new Soldier("Сотников", "Ст. Лейтенант", "Автомат", 105)
             };
 
@@ -67,25 +70,26 @@ namespace UnitingForces
 
         public void Work()
         {
-            string platoon1 = "Взвод 1:";
-            string platoon2 = "Взвод 2:";
+            string platoon1Header = "Взвод 1:";
+            string platoon2Header = "Взвод 2:";
+            string symbol = "Бро";
             
-            ShowPlatoon(platoon1, _platoon1);
-            ShowPlatoon(platoon2, _platoon2);
+            ShowPlatoon(platoon1Header, _platoon1);
+            ShowPlatoon(platoon2Header, _platoon2);
 
-            Transfer();
+            Transfer(symbol);
 
-            Console.WriteLine($"Перевод бойцов с фамилией начинающейся на \"Б\" произведен\n");
+            Console.WriteLine($"Перевод бойцов с фамилией начинающейся на \"{symbol}\" произведен\n");
 
-            ShowPlatoon(platoon1, _platoon1);
-            ShowPlatoon(platoon2, _platoon2);
+            ShowPlatoon(platoon1Header, _platoon1);
+            ShowPlatoon(platoon2Header, _platoon2);
 
             Console.ReadKey();            
         }
         
-        private void Transfer()
+        private void Transfer(string symbol)
         {
-            var soldiersForTransfer = _platoon1.Where(player => player.Name.StartsWith("Б"));
+            var soldiersForTransfer = _platoon1.Where(player => player.Name.StartsWith(symbol));
             _platoon2 = _platoon2.Union(soldiersForTransfer).ToList();
             _platoon1 = _platoon1.Except(soldiersForTransfer).ToList();
         }
